@@ -1,8 +1,13 @@
 
+.PHONY: wc-app, clean, mrsequential
 
+words=$(wildcard ./main/words/pg*.txt)
 
+echo:
+	@echo $(words)
 
-.PHONY: wc-app, clean
+mrsequential: wc-app
+	@go run main/mrsequential.go wc.so $(words)
 
 wc-app:
 	@go build -buildmode=plugin ./mrapp/wc.go
@@ -10,3 +15,4 @@ wc-app:
 
 clean:
 	rm -f wc.so
+	rm -f mr-out-*
