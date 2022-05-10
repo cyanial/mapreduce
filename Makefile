@@ -10,15 +10,14 @@ mrsequential: wc-app
 	@go run -race main/mrsequential.go wc.so $(words)
 
 mrcoordinator:
-	@go run -race
+	@go run -race main/mrcoordinator.go $(words)
 
-mrworker: wc-app
-	@go run 
-
+# mrworker: wc-app
+# 	@go run -race main/mrworker.go wc.so
 
 
 # apps
-wc-app:
+wc-app: 
 	@go build -buildmode=plugin ./mrapp/wc.go
 
 clean:

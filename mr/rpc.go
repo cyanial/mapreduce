@@ -24,6 +24,22 @@ type ExampleReply struct {
 
 // Add your RPC definitions here.
 
+type RegisterArgs struct {
+	WorkerName string
+}
+
+type RegisterReply struct {
+	Id int
+}
+
+type FetchJobArgs struct {
+	Id int
+}
+
+type FetchJobReply struct {
+	Job int
+}
+
 // Cook up a unique-sh UNIX-domain socket name
 // in /var/tmp, for the coordinator.
 // Can't use the current directory since

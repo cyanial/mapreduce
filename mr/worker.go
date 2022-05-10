@@ -32,11 +32,22 @@ func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
 	// Your worker implementation here.
 
-	// mapf()
-	// reducef()
+	registerArgs := RegisterArgs{"小猪佩奇"}
+	registerReply := RegisterReply{}
+	ok := call("Coordinator.Register", &registerArgs, &registerReply)
+	if !ok {
+		// Worker is not registered
+		log.Fatalf("Worker %q is not registered", registerArgs.WorkerName)
+	}
+	fmt.Printf("Worker %q (id: %d)registers successfully\n", registerArgs.WorkerName, registerReply.Id)
 
-	// uncomment to send the Example RPC to the coordinator.
-	// CallExample()
+	// not return
+
+	// call for a job
+	fetchJobArgs := FetchJobArgs{registerReply.Id}
+	fetchJobReply := FetchJobReply{}
+	ok = call("Coordinator.FetchJob", &fetchJobArgs, &fetchJobReply)
+	fmt.Println("has fetched job")
 }
 
 //
