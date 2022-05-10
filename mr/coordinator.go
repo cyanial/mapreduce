@@ -1,6 +1,8 @@
 package mr
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
@@ -10,6 +12,9 @@ import (
 
 type Coordinator struct {
 	// Your definitions here.
+	nSplits  int
+	nMaps    int
+	nReduces int
 }
 
 // Your code here -- RPC handlers for the worker to call.
@@ -60,7 +65,23 @@ func (c *Coordinator) Done() bool {
 func MakeCoordinator(files []string, nReduce int) *Coordinator {
 	c := Coordinator{}
 
-	// Your code here.
+	// Read files and splits into small-chunks
+	// just read-in and save
+	idx := 0
+	for _, filename := range files {
+		file, err := os.Open(filename)
+		if err != nil {
+			log.Fatalf("cannot open %v", filename)
+		}
+
+		oname := fmt.Sprintf("splits/mr-split-%d", idx)
+		ofile, _ := os.Create(oname)
+		io.Copy(ofile, file)
+		idx++
+		file.Close()
+	}
+
+	c.nSplits = idx
 
 	c.server()
 	return &c

@@ -32,6 +32,9 @@ func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
 	// Your worker implementation here.
 
+	// mapf()
+	// reducef()
+
 	// uncomment to send the Example RPC to the coordinator.
 	// CallExample()
 }

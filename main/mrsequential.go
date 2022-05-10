@@ -56,6 +56,7 @@ func main() {
 	// a big difference from real MapReduce is that all the
 	// intermediate data is in one place, intermediate[],
 	// rather than being partitioned into NxM buckets.
+	//
 
 	sort.Sort(ByKey(intermediate))
 
@@ -66,6 +67,7 @@ func main() {
 	// call Reduce on each distinct key in intermediate[],
 	// and print the result to mr-out-0.
 	//
+
 	i := 0
 	for i < len(intermediate) {
 		j := i + 1
